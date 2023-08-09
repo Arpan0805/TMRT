@@ -1,0 +1,1604 @@
+<?php
+session_start();
+if($_SERVER['REQUEST_METHOD'] == "POST")
+{
+
+
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "";
+$dbname = "tmrt";
+      $email_id = $_POST['email_id'];
+			$name = $_POST['name'];
+      $message = $_POST['message'];
+      $conn = new mysqli($dbhost, $dbuser, $dbpass, "tmrt");
+		if(!empty($email_id) && !empty($name) && !empty($message) )
+		{
+		
+			//read from database
+			$query = "insert into contact (name, email_id, message) values ('$name', '$email_id', '$message')";
+			mysqli_query($conn, $query);
+
+      header("Location: index.php");
+      die;
+    }else
+    {
+      echo "Please enter some valid information!";
+    }
+			
+   
+
+if(!$conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
+{
+
+	die("failed to connect!");
+}
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    
+    <title>TMRT- The Marine Robotics Teamsss</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato"
+      rel="stylesheet"
+      type="text/css"/>
+    <link
+      rel="stylesheet"
+      href="myystyle.css"
+    />
+    <body>
+    <style>
+        body{
+	font-family: 'arial';
+	margin: 0;
+	overflow-x: hidden;
+	padding: 0;
+
+}
+
+.animation-wrapper{
+	background: #ace5ee;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.water{
+    bottom: 0;
+    left: 0;
+	position: absolute;
+    width: 100%;
+}
+
+.water ul.waves{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.water ul.waves li{
+	background-repeat: repeat-x;
+}
+
+.water ul.waves li.wave-one{
+	animation: wave 8.7s linear infinite;
+	-webkit-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	bottom: 0px;
+	height: 50px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	z-index: 10;
+}
+
+.water ul.waves li.wave-two{
+	-webkit-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	animation: wave 10s linear infinite;
+	bottom: 0px;
+	height: 84px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	z-index: 9;
+}
+
+.water ul.waves li.wave-three{
+	-webkit-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	animation: wave 25s linear infinite;
+	bottom: 0;
+	height: 190px;
+	left: 0;
+	position: absolute;
+	right: 0;
+	z-index: 8;
+}
+
+.water ul.waves li.wave-four{
+	-webkit-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	animation: wave 25s linear infinite;
+	bottom: 0;
+	height: 205px;
+	left: 0;
+	position: absolute;
+	right: 0;
+}
+
+.boat{
+	animation: boat 3s linear infinite;
+    background-repeat: no-repeat;
+    bottom: 175px;
+    height: 145px;
+    left: 40%;
+	position: absolute;
+    width: 250px;
+}
+
+.cloud{
+	animation: cloud 3s linear infinite;
+	background-repeat: no-repeat;
+    height: 165px;
+    left: 0;
+    position: absolute;
+    width: 297px
+}
+
+.cloud2{
+	animation: cloud 5s linear infinite;
+	background-repeat: no-repeat;
+    bottom: 320px;
+    height: 165px;
+    left: 140px;
+    position: absolute;
+    width: 297px;
+}
+
+
+/*Animation Keyframe Section*/
+
+@keyframes wave{
+    0% {
+        background-position: 0 0;
+	}
+    50% {
+        background-position: 920px 0;
+    }
+    100% {
+        background-position: 1920px 0;
+    }
+}
+
+@keyframes dolphin{
+	0%{
+		left: -30%;
+	}
+    50%{
+		left: 30%;
+	}
+	100%{
+		left: 100%;
+	}
+}
+
+@keyframes boat{
+   
+	0%{
+		transform: rotate(0);
+	}
+
+  25%{
+		transform: rotate(-3deg);
+	}
+
+	50%{
+		transform: rotate(-6deg);
+	}
+
+  75%{
+		transform: rotate(3deg);
+	}
+
+	100%{
+		transform: rotate(0);
+	}
+}
+
+@keyframes cloud{
+	0%{
+		left: -30%;
+	}
+    50%{
+		left: 30%;
+	}
+	100%{
+		left: 100%;
+	}
+}
+
+    </style>
+    <div class="animation-wrapper">
+		<div class="water">
+			<ul class="waves">
+				<li class="wave-one" style="background-image: url('https://i.postimg.cc/7LtCC11Y/wave1.png');"></li>
+				<li class="wave-two" style="background-image: url('https://i.postimg.cc/P5hv05rh/wave2.png');"></li>
+				<li class="wave-three" style="background-image: url('https://i.postimg.cc/63Dyc91k/wave3.png');"></li>
+				<li class="wave-four" style="background-image: url('https://i.postimg.cc/1tg8DgM0/wave4.png');"></li>
+			</ul>
+		</div>
+		<div class="boat" style="background-image: url('https://i.postimg.cc/GmQTRnHD/boat2.png');"></div>
+		<div class="cloud" style="background-image: url('https://i.postimg.cc/VNkrLZCV/cloud-md.png');"></div>
+		<div class="cloud2" style="background-image: url('https://i.postimg.cc/VNkrLZCV/cloud-md.png');"></div>
+        
+	</div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
+<script>  
+   $(window).on('load', function () {  
+       $(".animation-wrapper").fadeOut("very very slow");  
+  });  
+</script> 
+    <script
+      src="https://kit.fontawesome.com/ec4bc117da.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+   
+  </head>
+  <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#myNavbar"
+          >
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#myPage"
+            ><img
+              width="90"
+              src="https://tmrt-kjsce.github.io/TMRT/TMRTlogotrans.png"
+          /></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                   
+         
+            
+        <li><a href="#about">ABOUT</a></li>
+      <li><a href="#team">TEAM</a></li>
+      <li><a href="#sponsors">SPONSORS</a></li>
+      <li><a href="#gallery">GALLERY</a></li>
+      <li><a href="#Subdivision">SUBDIVISIONS</a></li>
+      <li><a href="model2.html">VEHICLES</a></li>
+      <li><a href="crowdfunding.html">CROWD FUNDING</a></li>
+
+    </div>
+  </div>
+          </ul>
+       
+      </div>
+    </nav>
+
+   
+
+    <div class="jumbotron text-center">
+      <video
+        disablepictureinpicture="true"
+        width="500"
+        height="240"
+        muted="true"
+        loop="true"
+        autoplay="true"
+        style="user-select: auto">
+        <source
+          src="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/Screen%20Recording%202022-02-07%20at%203.51.52%20PM.mov?raw=true"
+          type="video/webm"
+          style="user-select: auto"
+        />
+      </video>
+    </div>
+
+      <div class=" container">
+        
+        <video plays-inline
+          disablepictureinpicture="true"
+          
+          loop="true"
+          muted="true"
+          autoplay="true"
+          style="user-select: auto" class = "back-video">
+          <source
+            src="https://kjsce.somaiya.edu/upload_file/images20/TMRT_PROTON_TEST_(1).mp4"
+            type="video/webm"
+            style="user-select: auto"/>
+        </video>
+ <style>
+  .back-video{
+    position : absolute;
+    right: 0;
+    bottom: 0;
+  
+    z-index: -1;
+  }
+  @media(max-aspect-ratio: 16/9){
+    .back-video{
+      width: auto;
+      height: 100%;
+    }
+    
+  }
+  @media(min-aspect-ratio: 16/9){
+    .back-video{
+      width: 100%;
+      height: auto;
+    }
+    
+  }
+   
+ 
+  </style> 
+
+</div>
+</section>
+
+<section class="home container-fluid p-0">
+   
+        <div class="counting bg-blue1">
+        
+        <div class="box">
+          <h1 class="count" data-count="3400">3400+</h1>
+          <h3>Working hours</h3>
+        </div>
+        
+        <div class="box">
+          <h1 class="count" data-count="1100000">11 Lac+</h1>
+          <h3>Funding</h3>
+        </div>
+        
+        <div class="box">
+          <h1 class="count" data-count="20">20+</h1>
+          <h3>Team Members</h3>
+        </div>
+        
+        <div class="box">
+          <h1 class="count" data-count="5">4+</h1>
+          <h3>Projects</h3>
+        </div>
+        
+        </div>
+        
+        </section>
+  <script>
+$(document).ready(function(){
+
+$('.fa-bars').click(function(){
+  $(this).toggleClass('fa-times');
+  $('nav').toggleClass('nav-toggle');
+});
+$(window).scroll(function()
+{
+  $('.fa-bars').removeClass('fa-times');
+  $('nav').removeClass('nav-toggle');
+});
+
+$('.count').each(function() {
+  var $this = $(this),
+      countTo = $this.attr('data-count');
+  $({ countNum: $this.text()}).animate({
+    countNum: countTo
+  },
+  {
+    duration: 5000,
+    step: function() {
+      $this.text(Math.floor(this.countNum));
+    },
+    complete: function() {
+      $this.text(this.countNum + '+');
+    }
+  });
+});
+
+$('.project').magnificPopup({
+  delegate:'a',
+  type:'image',
+  gallery:{
+    enabled:true
+  }
+});
+
+});
+</script>
+
+<style>
+ .counting{
+  min-height: 40vh;
+  padding:2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgba(0,0,0,.5);
+  color: #fff;
+}
+
+.counting .box{
+  margin: 4rem 4rem;
+  text-align: center;
+}
+
+.counting .box .count{
+  font-size: 7rem;
+  color:#ffffff;
+  font-weight: bolder;
+}
+
+ .counting .box h3{
+  font-size: 2rem;
+  color:var(--orange);
+  font-weight: bolder;
+}
+
+</style>
+
+    <!-- Container (About Section) -->
+    <div id="about" class="container-fluid bg-blue0">
+    
+         
+          <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--<title> An About Us Page | CoderGirl </title>-->
+  <!---Custom Css File!--->
+</head>
+<body>
+
+    <div class="about">
+      <img src="Pics/Tmrt.jpg" class="pic">
+      <div class="text">
+        <h2>About Us</h2>
+        <h5>THE MARINE ROBOTICS TEAM</h5>
+          <p>The Marine Robotics Team (TMRT) is a student team from K. J. Somaiya College of Engineering, Vidyavihar that focuses on building autonomous marine systems. TMRT is formed by 30 passionate undergraduate students across 4 years from various departments who want to apply their knowledge to design and engineer an Autonomous Underwater Vehicle (AUV). Dr. Ninad Mehendale is the faculty coordinator of TMRT. We aim to compete in various National and International competitions like NIOT SAVe, SAUVC, ROBOSUB and SAUC-E in the coming years.</p>
+        <div class="data">
+        <a href="#contact" class="contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+        </div>
+        
+      </div>
+    </div>
+    
+    
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+
+
+.pic{
+  height: auto;
+  width:  450px;
+}
+.about{
+  font-size=90px
+  max-width: 200%;
+  margin: 0 auto;
+  display: flex;
+  align-items: justify;
+  justify-content: space-around;
+  
+}
+
+.text h2{
+  font-size: 90px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  padding-left: 10px;
+
+}
+.text h5{
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+span{
+  color: #CEF2F3;
+}
+.text p{
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: 1px;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+.data{
+  margin-top: 30px;
+  padding-left:20px;
+}
+.contact{
+  font-size: 18px;
+  background: #4070f4;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.contact:hover{
+  background: #000;
+  border: 1px solid #4070f4;
+}
+     
+        
+    </style>
+
+      <div class="container-fluid bg-blue text-black text-center">
+        <h1>Competitions participated</h1>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div
+              class="image-flip"
+              ontouchstart="this.classList.toggle('hover');"
+            >
+              <div class="mainflip">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p>
+                        <img
+                          width="80"
+                          alt="Team Cards Flipper"
+                          src="https://robonation.org/app/uploads/sites/4/2019/10/robosub-logo_vert.png"
+                        />
+                      </p>
+                      <h4 class="card-title">Robosub</h4>
+                      <p class="card-text">
+                        The fundamental goal of the RoboSub competition is for
+                        an Autonomous Underwater Vehicle (AUV) to demonstrate
+                        its autonomy by completing underwater tasks, with a new
+                        theme each year.
+                      </p>
+                      <a href="https://robonation.org/programs/robosub/" class="btn btn-primary btn-sm">More</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside ">
+                  <div class="card  ">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title">RoboSub</h4>
+                      <p class="card-text">
+                        RoboSub is an exciting underwater robotics program in
+                        which teams of high school and college students from
+                        around the world design and build an Autonomous
+                        Underwater Vehicle (AUV). These vehicles are designed to
+                        autonomously navigate through a series of tasks. These
+                        tasks mimic ongoing research in Autonomous Underwater
+                        Systems.
+                      </p>
+                      <a href="https://robonation.org/programs/robosub/" class="btn btn-primary btn-sm">More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div
+              class="image-flip"
+              ontouchstart="this.classList.toggle('hover');"
+            >
+              <div class="mainflip">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+          
+                      <p>
+                        <img
+                          class="img-fluid"
+                          alt="Team Cards Flipper"
+                          src="https://sauvc.org/img/logo_notext.png"
+                        />
+                      </p>
+                      <h4 class="card-title">SAUVC</h4>
+                      <p class="card-text">
+                        The Singapore Autonomous Underwater Vehicle Challenge
+                        (SAUVC). The SAUVC competition challenges participant
+                        teams to build an AUV which can perform given tasks.
+                      </p>
+                      <a href="https://sauvc.org/" class="btn btn-primary btn-sm">More</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside ">
+                  <div class="card">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title">SAUVC</h4>
+                      <p class="card-text">
+                        Autonomous underwater robotics is an exciting challenge
+                        in engineering, which participants get to experience at
+                        SAUVC. The competition is great learning ground for
+                        participants to experience the challenges of AUV system
+                        engineering and develop skills in the related fields of
+                        mechanical, electrical and software engineering.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div
+              class="image-flip"
+              ontouchstart="this.classList.toggle('hover');"
+            >
+              <div class="mainflip">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p>
+                        <img
+                          class="img-fluid"
+                          alt="Team Cards Flipper"
+                          src="https://upload.wikimedia.org/wikipedia/en/a/a6/Logo_for_National_Institute_of_Ocean_Technology.jpg"
+                        />
+                      </p>
+                      <h4 class="card-title">INSAUVC</h4>
+                      <p class="card-text">
+                        National Institute of Ocean Technology (NIOT), conducts
+                        a competition for students to visualize and design an
+                        AUV, known as the Indian Student Autonomous Underwater
+                        Vehical Challenge.
+                      </p>
+                      <a href="https://www.indiascienceandtechnology.gov.in/organisations/ministry-and-departments/ministry-earth-sciences-moes/national-institute-ocean" class="btn btn-primary btn-sm">More</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside ">
+                  <div class="card">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title">INSAUVC</h4>
+                      <p class="card-text">
+                        The conceptual basis for Student Autonomous underwater
+                        Vehicle (SAVe), is a highly mobile autonomous underwater
+                        vehicle (AUV) to be built based on engineering
+                        principles. The main focus of this competition is to
+                        involve students on the new frontier areas of ocean
+                        technology and kindle their innovative thinking in this
+                        unexplored area of ocean environment and observation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+    <!-- Container (our team Section)-->
+    <section id="team">
+    <h2 style = "padding-left: 2%; color: #000;">THE MARINE ROBOTICS TEAM </h2>
+    <div class="container">
+        <div class="row">
+            <section>
+      
+      <div class="row">
+        <!-- Column 1-->
+        <div class="column">
+          <div class="card">
+            <div class="img-container">
+              <img src="Pics/ninad.jpg"/>
+            </div>
+            <h3>Dr. Ninad Mehandele</h3>
+            <p>Mentor</p>
+            <div class="icons">
+              <a href="#">
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Column 2-->
+        <div class="column">
+          <div class="card">
+            <div class="img-container">
+              <img src="Pics/rishikesh.jpg" />
+            </div>
+            <h3>Rishikesh Bhintade</h3>
+            <p>Captain</p>
+            <div class="icons">
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- Column 3-->
+        <div class="column">
+          <div class="card">
+            <div class="img-container">
+              <img src="Pics/anagh.jpg" />
+            </div>
+            <h3>Anagh Gharat</h3>
+            <p>Vice-Captain</p>
+            <div class="icons">
+              <a href="https://instagram.com/anagh1928?igshid=MzRlODBiNWFlZA==">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/anagh-gharat-b4621b201/">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+              <br>
+             
+    </div>
+    <style>
+      .btn-text-left{
+        text-align: left;	
+      }
+      </style>
+      <div class="btn-text-left">
+        <br>
+        <br>
+          <button type="button" class="btn btn-primary"><a href ="team.html" style = "color: white;">View More</a></button>
+      </div>
+    <br>
+    <br>
+   
+   
+</section>
+
+   
+ <style>
+  .back-video{
+    position : fixed;
+    right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+    z-index: -1;
+  }
+  .card {
+  box-shadow: 0 0 2.4em rgba(25, 0, 58, 0.1);
+  padding: 3.5em 1em;
+  border-radius: 0.6em;
+  color: #1f003b;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #ffffff;
+}
+.card .img-container {
+  width: 8em;
+  height: 8em;
+  background-color: #000080;
+  padding: 0.5em;
+  border-radius: 50%;
+  margin: 0 auto 2em auto;
+}
+.card img {
+  width: 100%;
+  border-radius: 50%;
+}
+.card h3 {
+  font-weight: 500;
+}
+.card p {
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 0.5em 0 2em 0;
+  letter-spacing: 2px;
+}
+.icons {
+  width: 50%;
+  min-width: 180px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.card a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.4em;
+}
+.card:hover {
+  background: linear-gradient(#e0ffff, #0f4d92);
+  color: #ffffff;
+}
+.card:hover .img-container {
+  transform: scale(2);
+}
+@media screen and (min-width: 768px) {
+  section {
+    padding: 1em 7em;
+  }
+}
+@media screen and (min-width: 992px) {
+  section {
+    padding: 1em;
+  }
+  .card {
+    padding: 5em 1em;
+  }
+  .column {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+    padding: 0 1em;
+  }
+}
+  </style> 
+  
+  <style>
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.3%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: black;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+</style>
+</head>
+<body>
+
+
+</body>
+
+  <!-- Container (sponsers Section) -->
+  <section id="sponsors" class="container-fluid bg-blue0 text-center">
+      <h1 class="section-title" style="color: black; font-weight: bolder;">Sponsors</h1>
+
+      <br />
+      <div class="row slideanim">
+        <div class="col-sm-4">
+          <a href="https://www.3ds.com/">
+            <img
+              width="240"
+              src="Pics/dessault_sponsor.jpg"
+            />
+          </a>
+          <h4 style="font-weight: bolder; font-family: Copperplate, Papyrus, fantasy;">Dassault-Systèmes</h4>
+          <p style="color: black; font-weight: bolder; font-size: large;">Dassault Systèmes SE is a French multinational software corporation which develops software for 3D product design, simulation, manufacturing and other 3D related products.</p>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://www.irobokid.com/">
+            <img
+              width="240"
+              src="https://www.irobokid.com/wp-content/uploads/2016/12/irobokid-mumbai-logo.png"
+            />
+          </a>
+          <h4 style="font-family: Copperplate, Papyrus, fantasy; font-weight: bolder;">irobokid</h4>
+          <p style="color: black; font-weight: bolder; font-size: large;">With over 10 years of experience of teaching STEM programs to thousands of children & partnering with over 100’s of schools, we are pleased to share FLITE with you (Future Learning in Technology Education)</p>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://kjsce.somaiya.edu/en">
+            <img
+              width="240"
+              src="https://www.cinebuster.in/wp-content/uploads/2020/09/IMG_8560-696x392.jpg"
+            />
+          </a>
+          <h4 style="font-family: Copperplate, Papyrus, fantasy;font-weight: bolder;">K.J. Somaiya College Of Engineering</h4>
+          <p style="color: black; font-weight: bolder; font-size: large;">KJSCE is one of the best engineering colleges in India, ranking in the top amongst B.Tech and M.Tech colleges for its excellent education.</p>
+        </div>
+      </div>
+      <br><br>
+    </section>
+
+  </div>
+  <div class = "bg-blue">
+  <section id="gallery" class="pb-5   text-center">
+    <br>
+        <h2 class="text-center">Participation in various events</h2>
+        <div class="gal" style="user-select: auto">
+          <div class="row" style="user-select: auto">
+            <div class="col-sm-6 col-md-4" style="user-select: auto">
+              <a
+                class="lightbox"
+                href="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g1.jpg?raw=true"
+                style="user-select: auto">
+                <img
+                  src="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g1.jpg?raw=true"
+                  alt=""
+                  style="user-select: auto"
+                />
+              </a>
+            </div>
+            <div class="col-sm-6 col-md-4" style="user-select: auto">
+              <a
+                class="lightbox"
+                href="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g2.jpg?raw=true"
+                style="user-select: auto">
+                <img
+                  src="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g2.jpg?raw=true"
+                  alt=""
+                  style="user-select: auto"
+                />
+              </a>
+            </div>
+            <div class="col-sm-6 col-md-4" style="user-select: auto">
+              <a
+                class="lightbox"
+                href="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g3.jpg?raw=true"
+                style="user-select: auto"
+              >
+                <img
+                  src="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g3.jpg?raw=true"
+                  alt=""
+                  style="user-select: auto"
+                />
+              </a>
+            </div>
+            <div
+              class="col-sm-6 col-md-4 desktop-only"
+              style="user-select: auto"
+            >
+              <a
+                class="lightbox"
+                href="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g10.jpg?raw=true"
+                style="user-select: auto"
+              >
+                <img
+                  src="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g10.jpg?raw=true"
+                  alt=""
+                  style="user-select: auto"
+                />
+              </a>
+            </div>
+            <div
+              class="col-sm-6 col-md-4 desktop-only"
+              style="user-select: auto"
+            >
+              <a
+                class="lightbox"
+                href="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g8.jpg?raw=true"
+                style="user-select: auto"
+              >
+                <img
+                  src="https://github.com/tmrtkjsce/TMRT-Website-2021-22/blob/main/src/g8.jpg?raw=true"
+                  alt=""
+                  style="user-select: auto"
+                />
+              </a>
+            </div>
+            <div
+              class="col-sm-6 col-md-4 desktop-only"
+              style="user-select: auto"
+            >
+              <a
+                class="lightbox"
+                
+                style="user-select: auto"
+              >
+                <img
+                  src="Pics/Working.jpeg"
+                  alt=""
+                  style="user-select: auto"
+                />
+              </a>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding-left: 70px;" class="btn-text-left">
+          <button type="button" class="btn btn-primary"><a href ="Gallery.html" style = "color: white;">View More</a></button>
+      </div>
+    </section>
+
+ 
+  </header><!-- End Header -->
+   
+   <!-- Container (Subdivisions Section) -->
+   <section id = "Subdivision">
+      <section id="tabs" class="tabs">
+    <div class="container" data-aos="fade-up" style="background: whitesmoke;">
+      <ul class="nav nav-tabs row d-flex">
+        <li class="nav-item col-3">
+          <a class="nav-link active show" data-toggle="tab" href="#tab-1">
+            <i class="bx bx-wrench"></i>
+            <h4 class="d-none d-lg-block">Mechanical</h4>
+          </a>
+        </li>
+        <li class="nav-item col-3">
+          <a class="nav-link" data-toggle="tab" href="#tab-2">
+            <i class="bx bx-bulb"></i>
+            <h4 class="d-none d-lg-block">Electrical</h4>
+          </a>
+        </li>
+        <li class="nav-item col-3">
+          <a class="nav-link" data-toggle="tab" href="#tab-3">
+            <i class="bx bx-bot"></i>
+            <h4 class="d-none d-lg-block">Software</h4>
+          </a>
+        </li>
+        <li class="nav-item col-3">
+          <a class="nav-link" data-toggle="tab" href="#tab-4">
+            <i class="bx bx-bar-chart-square"></i>
+            <h4 class="d-none d-lg-block">Marketing</h4>
+          </a>
+        </li>
+      </ul>
+    <h2 font-size:100px;color: #000;">SUBDIVISIONS </h2>
+      <div class="tab-content">
+        <div class="tab-pane active show" id="tab-1">
+             
+          <div class="row">
+            <div class = "col-lg-6 ">
+         <style>
+         p {
+  font-size: 20px;
+}
+p{text-align: center;padding:50px}
+</style>
+          
+              <p>
+              The <b>Mechanical Subdivision</b> works actively to bring in innovations and develop practical designs of the vehicle. The main interests of the subdivision include planning, designing and testing different parts, fabricating and waterproofing the entire vehicle which can be disassembled by few screw sets within minutes.
+            </p>
+            <div class="col col-lg-2">
+            </div>
+            <h4 style="padding-top:20px ;"><b>Designing and Manufacturing</b></h4>
+            <p class="fst-italic">
+              	<b>Design:</b> Solidworks is the main designing tool helps to bring in the innovation from minds to virtual environment. Changes in the design is also a crucial to bring in maximum practicality and efficiency of the vehicle.
+              	<br>
+              
+               <b>Manufacturing:</b> It is the final step which brings design to reality. It invloves building the robotic systems based on the designs and specifications. Various manufacturing processes, including machining, welding, and assembly, to produce the robots' mechanical and electrical components. It is also important to keep in mind that the robots meet the required quality standards and undergo rigorous testing before they are deployed for use.
+            </p>
+            </div>
+          </div>
+          <div class="row">
+            <div style="margin-bottom:50px ;" class="col-md-5 aos-init aos-animate" data-aos="fade-right" data-aos-delay="100">
+              <img src="mech1.jpg" class="img-fluid" alt="" width="460" height="400">
+            </div>
+            <div class="col-md-7 pt-4 aos-init aos-animate" data-aos="fade-left" data-aos-delay="100">
+              <h4><b>Research & Development</b></h4>
+              <p class="fst-italic">
+                <b>Research & Development:</b> The research is the very first step of exploring and involves studying of various elements which includes structural components like rods, beams, chain mechanisms, thruster designs, conveyor belts, torpedoes, etc. And finalising and the materials to begin with design process.
+                 <b>Innovation :</b>The field of marine robotics is constantly evolving, with new technologies and design approaches emerging. The mechanical subdivision is involved in research and development efforts to improve the efficiency, maneuverability, and capabilities of underwater robotic platforms.
+              </p>
+          </div>
+          <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+            <h4 font-size:50px;><b>Testing</b></h4>
+            <p class="fst-italic">
+            <b>Testing and validation:</b> The testing team is responsible for evaluating the performance of the robotic systems in different marine environments. They conduct various tests, including static and dynamic tests, to determine the robots' capabilities and limitations. The testing team also conducts sea trials to assess the robots' performance in real-world conditions.
+            
+              Before deployment, the mechanical team conducts rigorous testing to ensure that the robotic systems can operate as intended. This includes buoyancy testing, pressure testing, stress analysis, and functional tests of all components.
+              <br>
+            
+             <b>Maintenance and Repair:</b> After deployment, the mechanical subdivision is responsible for the ongoing maintenance and repair of the robotic systems. This could involve diagnosing and fixing mechanical issues that arise during missions or routine maintenance to extend the robots' operational lifespan.
+            </p>
+        </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab-2">
+          <p>
+            The <b>Electrical Subdivision</b>  is the link between the mechanical and software subdivisions,
+            responsible for designing, manufacturing and managing the power requirements and controlling
+            the thrusters and actuator systems with the help of customized PCBs.
+        </p>
+        <div style="padding-top:20px ;"  class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+          <h4><b>Designing and Manufacturing</b></h4>
+          <p class="fst-italic">
+            A schematic of the board is prepared from the pre-designed circuit diagram, after which
+            the designing of the PCB layout is done. The design review of these boards is carried
+            out multiple times to ensure the correctness and to avoid any minor mistakes before
+            proceeding to manufacture.
+            These custom boards are then soldered to fit the components. The microcontrollers in the
+            PCBs are accoutred with codes developed to command them, implementation of which allows
+            the microcontroller to incorporate I/O functions, servo control, data acquisition and
+            transmission. Once we have all the electrical hardware components, they are verified for
+            their functioning by testing them without being placed in Matsya. After ensuring their
+            regular operation, different parts are connected inside the respective hulls with the
+            help of connectors and penetrators, where the Microcontrollers are loaded with their
+            working algorithms.
+        </p>
+        </div>
+        <div class="row">
+          <div style="padding-top:50px ;" class="col-md-5 aos-init aos-animate" data-aos="fade-right" data-aos-delay="100">
+            <img src="assets/img/elec2.png" class="img-fluid" alt="">
+            </div>
+            <div style="margin-top:60px ;" class="col-md-7 pt-4 aos-init aos-animate" data-aos="fade-left" data-aos-delay="100">
+              <h4 style="padding-left:50px;"><b>Task and Testing</b></h4>
+              <p style="padding-left:50px;" class="fst-italic">
+                During the run, the dropping of markers and torpedo shooting is accomplished by us. With
+                the help of communication protocols, we interface the codes of drivers and sensors with
+                the vehicle and its milieu. The fully equipped Matsya is deployed in the swimming pool,
+                where a check of significant activities like waterproofing, electrical stack working,
+                data-logging, etc., is done. There have been instances of water leakage inside hulls
+                which led to replacing the total electrical stack with new components resulting in
+                numerous night-outs solving the issues, which engulfed us in a lot of fun activities,
+                mid-night snacks, treats and created lifelong memories.
+            </p>
+            </div>
+        </div>
+        </div>
+        <div class="tab-pane" id="tab-3">
+          <div class="row">
+            <p class="fst-italic">
+              The <b>Software Subdivision</b>  is responsible for making Matsya Autonomous! The software stack
+              is written majorly in C,
+              C++ and Python. The main packages in the software stack include drivers, localisation,
+              controller, navigator, simulator,
+              state machine, mission planner, vision and acoustics, all of which have been written
+              from scratch with the help of
+              libraries such as <b>Robot Operating System</b> (ROS) for inter-process communication
+              and OpenCV for image processing.
+              All these packages combined provide autonomous capabilities to the vehicle, making it
+              capable of taking its own decisions. The overall architecture of the stack is <b>highly
+                  object-oriented</b> and majorly <b>independent of the vehicles</b>. The code
+              conforms to the LLVM standard and PEP 8 style guide, supported by inbuilt tests and
+              extensive documentation. The tasks and environment are simulated in <b>Gazebo</b> to
+              test any code we write. Post testing in the simulator, another important task for the
+              subdivision is real-life testing, where the code is physically tested on the vehicle
+              in-water. Thus, the main aim of the software subdivision is to write software that is
+              generic and error-free, in order to get the vehicles working at their full potential.
+          </p>
+          </div>
+          <div style="margin-top:60px ;" class="col-md-7 pt-4 aos-init aos-animate" data-aos="fade-left" data-aos-delay="100">
+            <h4><b>Controller and Navigator</b></h4>
+            <p class="fst-italic">
+              This module is responsible for autonomous control of the vehicle's motion. The
+              Controller is responsible for the vehicle achieving
+              given positions and velocities in all <b>6 Degrees Of Freedom</b> using feedback from
+              localization. The controller uses a <b>PID</b>
+              Controller (Proportional-Integral-Derivative) and an allocator which divides the forces
+              among our thrusters. We are currently working
+              on more advanced Optimal Control Laws and Improved Modelling of Vehicle’s Dynamics.
+              The Navigator helps our vehicle traverse the pool via complex paths. It features an
+              <b>Artificial Potential Fields</b> Based Obstacle
+              Avoidance and Trajectory Following Algorithms. It is responsible for commanding the
+              required positions and velocities from the controller.
+              This module allows our vehicle to navigate complex underwater environments.
+          </p>
+          </div>
+          <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+            <h4><b>Localization And Perception</b></h4>
+            <p class="fst-italic">
+              Our vehicle relies heavily on knowledge of its current location to be able to control
+              itself , find underwater tasks and make autonomous
+              decisions. The Localization module achieves this by combining data from our sensors to
+              get a good estimate of localization. We are currently
+              working on <b>sensor fusion</b> algorithms that can combine sensor data with our
+              knowledge of the vehicle's dynamics for better estimation.
+              Vehicle Autonomy requires that the vehicle is able to see and hear its environment and
+              use that information to identify and locate key objects
+              and tasks. We use both ML based <b>Yolo V3</b> and classical Computer Vision techniques
+              to identify objects in the environment.
+              A Time Difference Of Arrival (TDOA) based algorithm is applied on hydrophone data to
+              locate underwater pingers.
+          </p>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab-4">
+
+        </div>
+      </div>
+    </div>
+    </section>
+  </section>
+  
+       <!-- contact section starts  -->
+       
+
+    </container>
+    
+    <container>
+       <div class="contactcontainer">
+        <div class="contactcontent">
+          <div class="contactleft-side">
+            <div class="address details">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="topic">Address</div>
+              <div class="text-one">B-407,Bhaskaracharya Building,KJ Somaiya College Of Engineering</div>
+              <div class="text-two">Vidyanagar, Vidyavihar East, Mumbai-400077, Maharashtra, India</div>
+            </div>
+            <div class="phone details">
+              <i class="fas fa-phone-alt"></i>
+              <div class="topic">Phone</div>
+              <div class="text-one">+91-7506103520</div>
+              <div class="text-two">+91-7021546912</div>
+            </div>
+            <div class="email details">
+              <i class="fas fa-envelope"></i>
+              <div class="topic">Email</div>
+              <div class="text-one">tmrt@somaiya.edu</div>
+              
+            </div>
+          </div>
+          <section id="contact" class="pb-5   text-center">
+          <div class="contactright-side">
+            <div class="topic-text">Contact Us</div>
+            <h4>We hope the above is useful to you. Should you need any further information, please do not hesitate to contact us. </h4>
+            <form method="post" action="https://formspree.io/f/xknlnllq" method="post">
+            <div class="input-box">
+              <input type="name" name = "name" placeholder="Enter your name">
+            </div>
+            <div class="input-box">
+              <input type="email_id" name = "email_id" placeholder="Enter your email">
+            </div>
+            <div class="input-box message-box">
+              </div>
+            <div class="input-box">
+             <input type="message" name = "message" placeholder="Send Us a Message">
+            </div>
+            <div class="input-box message-box">
+              
+            </div>
+            <div class="button">
+              <input type="submit" name = "submit" value="Send Now" >
+            </div>
+          </form>
+        </div>
+        </div>
+      </div>
+    </container>
+
+
+    
+    <!-- contact section ends -->
+  
+    
+  
+  <!-- jquery file link  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <!-- magnific popup link  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+  
+  <!-- main/custom javascript file link  -->
+  <script src="home page.js"></script>
+  
+ 
+  
+
+      
+<div id="footer" >
+  <br>
+      <footer id="footer">
+        <footer class="footer">
+          <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+          </div>
+          <div class="row">
+      
+            <div class="col-sm-4 footer-contact">
+              <h3 style="color: rgb(0, 0, 0);">AUV-<span>TMRT</span></h3>
+              <p> <br>
+
+               KJSCE,Vidyavihar,<br>
+               Mumbai Maharashtra- 400076 <br><br>
+             </p>
+            </div>
+    
+            <div class="col-sm-4 footer-contact">
+              <p class="teamphone"> <strong>Phone:</strong>
+              <br>
+              <br>
+              <table style="color: white;" id="teamtable">
+                <tbody><tr>  
+                    <td>Rishikesh  Bhintade:</td>
+                    <td ><a href="tel: +917506103520" style="color: rgb(0, 0, 0);">+91 7506103520</a></td>
+                    </tr>
+                   
+                    <tr>
+                      
+                      <td>Anagh Gharat:</td>
+                      <td><a href="tel: +917021546912" style="color: rgb(0, 0, 0);">+91 7021546912 </a></td>
+                    </tr>
+                  
+              </tbody></table> <br>
+
+              <strong style="color: rgb(0, 0, 0);">Email:</strong> <a href="mailto: tmrt@somaiya.edu" style="color: rgb(0, 0, 0);">tmrt@somaiya.edu</a><br>
+              </p>
+            </div>
+    
+            <div class="col-sm-4 footer-links">
+    
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="index.php" style="color: rgb(0, 0, 0);">Home</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#about" style="color: rgb(0, 0, 0);">About us</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="model2.html" style="color: rgb(0, 0, 0);">Vehicles</a></li>
+
+          
+                <li><i class="bx bx-chevron-right"></i> <a href="team.html" style="color: rgb(0, 0, 0);">Team</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#gallery" style="color: rgb(0, 0, 0);">Gallery</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="blog.html" style="color: rgb(0, 0, 0);">Media & Blogs</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#contact" style="color: rgb(0, 0, 0);">Contact</a></li>
+              </ul> 
+            </div>
+    
+    
+    
+          </div>
+          <ul class="social-icon">
+            <li class="social-icon__item"><a class="social-icon__link" href="https://www.facebook.com/TMRTKJSCE/">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="https://twitter.com/TheTmrt">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="https://www.linkedin.com/in/tmrt-kjsce?originalSubdomain=in">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a></li>
+            <li class="social-icon__item"><a class="social-icon__link" href="https://www.instagram.com/tmrt_kjsce/">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a></li>
+          </ul>
+         </footer>
+        </footer>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+
+.footer {
+  position: relative;
+  width: 100%;
+  background: #3586ff;
+  min-height: 100px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  flex-direction: column;
+}
+
+.social-icon,
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.social-icon__item,
+.menu__item {
+  list-style: none;
+}
+
+.social-icon__link {
+  font-size: 2rem;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+}
+.social-icon__link:hover {
+  transform: translateY(-10px);
+}
+
+.menu__link {
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  transition: 0.5s;
+  text-decoration: none;
+  opacity: 0.75;
+  font-weight: 300;
+}
+
+.menu__link:hover {
+  opacity: 1;
+}
+
+.footer p {
+  color: #fff;
+  margin: 5px 0 5px 0;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.wave {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("https://i.ibb.co/wQZVxxk/wave.png");
+  background-size: 1000px 100px;
+}
+
+.wave#wave1 {
+  z-index: 1000;
+  opacity: 1;
+  bottom: 0;
+  animation: animateWaves 4s linear infinite;
+}
+
+.wave#wave2 {
+  z-index: 999;
+  opacity: 0.5;
+  bottom: 10px;
+  animation: animate 4s linear infinite !important;
+}
+
+.wave#wave3 {
+  z-index: 1000;
+  opacity: 0.2;
+  bottom: 15px;
+  animation: animateWaves 3s linear infinite;
+}
+
+.wave#wave4 {
+  z-index: 999;
+  opacity: 0.7;
+  bottom: 20px;
+  animation: animate 3s linear infinite;
+}
+
+@keyframes animateWaves {
+  0% {
+    background-position-x: 1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position-x: -1000px;
+  }
+  100% {
+    background-positon-x: 0px;
+  }
+}
+        </style>
+      
+        
+      
+  
+      <script>
+        $(document).ready(function () {
+          // Add smooth scrolling to all links in navbar + footer link
+          $(".navbar a, footer a[href='#myPage']").on("click", function (event) {
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+              // Prevent default anchor click behavior
+              event.preventDefault();
+  
+              // Store hash
+              var hash = this.hash;
+  
+              // Using jQuery's animate() method to add smooth page scroll
+              // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+              $("html, body").animate(
+                {
+                  scrollTop: $(hash).offset().top,
+                },
+                900,
+                function () {
+                  // Add hash (#) to URL when done scrolling (default click behavior)
+                  window.location.hash = hash;
+                }
+              );
+            } // End if
+          });
+  
+          $(window).scroll(function () {
+            $(".slideanim").each(function () {
+              var pos = $(this).offset().top;
+  
+              var winTop = $(window).scrollTop();
+              if (pos < winTop + 600) {
+                $(this).addClass("slide");
+              }
+            });
+          });
+        });
+      </script>
+    <!-- footer section ends -->
+    </footer>
+    </div>
+  </body>
+  
+</html>
+
+
